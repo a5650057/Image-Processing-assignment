@@ -59,7 +59,7 @@ def main():
     for ann_path in scaphoid_json_paths:
         base_name = os.path.basename(ann_path)  # e.g. 00075616-AP0.json
         image_name = base_name.replace('.json', '.jpg')
-        img_path = os.path.join('scaphoid_detection', 'image', image_name)
+        img_path = os.path.join('scaphoid_detection', 'images', image_name)
 
         if not os.path.exists(img_path):
             print(f"[警告] 找不到圖片: {img_path}, 跳過")
@@ -95,7 +95,7 @@ def main():
         base_name = os.path.basename(ann_path)
         image_name = base_name.replace('.json', '.jpg')
         # 假設骨折對應的圖也在 scaphoid_detection/image/
-        img_path = os.path.join('scaphoid_detection', 'image', image_name)
+        img_path = os.path.join('scaphoid_detection', 'images', image_name)
 
         if not os.path.exists(img_path):
             print(f"[警告] 找不到圖片: {img_path}, 跳過")
@@ -187,7 +187,7 @@ def main():
             train_anno_id += 1
 
         # 複製檔案到 dataset/images/train/<image_name>
-        src_path = os.path.join('scaphoid_detection', 'image', image_name)
+        src_path = os.path.join('scaphoid_detection', 'images', image_name)
         dst_path = os.path.join(train_img_dir, image_name)
         if not os.path.exists(dst_path):
             shutil.copy2(src_path, dst_path)
@@ -231,7 +231,7 @@ def main():
             val_anno_id += 1
 
         # 複製檔案到 dataset/images/val/<image_name>
-        src_path = os.path.join('scaphoid_detection', 'image', image_name)
+        src_path = os.path.join('scaphoid_detection', 'images', image_name)
         dst_path = os.path.join(val_img_dir, image_name)
         if not os.path.exists(dst_path):
             shutil.copy2(src_path, dst_path)
