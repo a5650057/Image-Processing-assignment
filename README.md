@@ -10,13 +10,7 @@
 conda env create -f environment.yml
 ```
 
-或手動執行以下指令：
 
-```bash
-conda create -n open-mmlab python=3.10 pytorch==1.10.1 cudatoolkit=10.2 torchvision -c pytorch -y
-pip install mmcv-full==1.7.1 -f https://download.openmmlab.com/mmcv/dist/cu102/torch1.10/index.html
-pip install yapf==0.31.0
-```
 
 ### 2. 下載相關資料與程式
 
