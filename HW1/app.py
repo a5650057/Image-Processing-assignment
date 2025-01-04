@@ -143,35 +143,5 @@ if __name__ == '__main__':
             ['Original Figure1', 'Fourier Low-pass Filtered'],
             save_prefix=os.path.join(output_dir, 'func4')
         )
-
-    elif func_num == '5':
-        # 功能5: 計算 Figure3 的 Fourier Spectrum 與 Phase Angle
-
-        figure3 = np.array([[1,0,7],
-                            [5,1,8],
-                            [4,0,9]], dtype=np.float32)
-
-        # 對figure3做DFT
-        dft3 = cv2.dft(figure3, flags=cv2.DFT_COMPLEX_OUTPUT)
-        # 取得頻譜圖 (magnitude) 與相位 (phase)
-        real_part = dft3[:,:,0]
-        imag_part = dft3[:,:,1]
-        
-        magnitude = cv2.magnitude(real_part, imag_part)
-        phase = np.arctan2(imag_part, real_part)
-
-        # 正規化magnitude方便顯示
-        magnitude_norm = cv2.normalize(magnitude, None, 0, 255, cv2.NORM_MINMAX)
-        
-        # phase 以度數表示並正規化(僅為顯示，phase原本為浮點)
-        phase_deg = (phase * 180 / np.pi) # 相位角轉為度
-        phase_norm = cv2.normalize(phase_deg, None, 0, 255, cv2.NORM_MINMAX)
-
-        show_images(
-            [figure3, magnitude_norm, phase_norm],
-            ['Original Figure3', 'Fourier Magnitude', 'Fourier Phase'],
-            save_prefix=os.path.join(output_dir, 'func5')
-        )
-
     else:
-        print("無效的功能號碼！請輸入1、2、3、4或5。")
+        print("無效的功能號碼！請輸入1、2、3、4。")
