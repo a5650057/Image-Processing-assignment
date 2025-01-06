@@ -1,7 +1,10 @@
 import sys
 import cv2
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+
 import os
 
 def show_images(images, titles, cmap='gray', save_prefix=None):
@@ -79,8 +82,8 @@ if __name__ == '__main__':
         # 功能2: 對 Figure2 進行銳化
         img2 = cv2.imread('Figure2.jpg', cv2.IMREAD_GRAYSCALE)
         # (a) Sobel
-        sobel_x = cv2.Sobel(img2, cv2.CV_64F, 1, 0, ksize=3)
-        sobel_y = cv2.Sobel(img2, cv2.CV_64F, 0, 1, ksize=3)
+        sobel_x = cv2.Sobel(img2, cv2.CV_64F, 1, 0, ksize=3)#水平方向
+        sobel_y = cv2.Sobel(img2, cv2.CV_64F, 0, 1, ksize=3)#垂直方向
         sobel_mag = cv2.magnitude(sobel_x, sobel_y)
         sobel_mag = np.uint8(np.clip(sobel_mag,0,255))
         sharpened_sobel = cv2.addWeighted(img2, 1.0, sobel_mag, 0.5, 0)
@@ -91,7 +94,7 @@ if __name__ == '__main__':
         rows, cols = img2.shape
         crow, ccol = rows//2, cols//2
         mask = np.ones((rows, cols, 2), np.float32)
-        r = 10  # 半徑
+        r = 20 # 半徑
         y, x = np.ogrid[:rows, :cols]
         dist2 = (x - ccol)**2 + (y - crow)**2
 
@@ -103,7 +106,7 @@ if __name__ == '__main__':
         img_back = cv2.magnitude(img_back[:,:,0], img_back[:,:,1])
         img_back = cv2.normalize(img_back, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
 
-        sharpened_fourier = cv2.addWeighted(img2, 1.0, img_back, 0.5, 0)
+        sharpened_fourier = cv2.addWeighted(img2, 1.0, img_back, 0.7, 0)
 
         # 顯示及儲存結果
         show_images(
@@ -116,7 +119,7 @@ if __name__ == '__main__':
     elif func_num == '3':
         # 功能3: 設計3x3高斯濾波器，對 Figure1 進行低通濾波
         img1 = cv2.imread('Figure1.jpg', cv2.IMREAD_GRAYSCALE)
-        gaussian_3x3 = gaussian_kernel(10, sigma=1)
+        gaussian_3x3 = gaussian_kernel(3, sigma=1)
         gaussian_filtered = cv2.filter2D(img1, -1, gaussian_3x3)
 
         show_images(
